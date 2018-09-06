@@ -4,8 +4,19 @@ class Usuario {
 
   private $id;
   private $nome;
+  private $senha;
   private $endereco;
   private $numero;
+
+  // construtor da class usuario -> logo ja seta os atributos de cara e define os valores iniciais, assim os campos nao ficam obrigatorios
+  public function __construct($nome = "", $senha = "", $endereco = "", $numero = ""){
+    $this->setNome($nome);
+    $this->setSenha($senha);
+    $this->setEndereco($endereco);
+    $this->setNumero($numero);
+  }
+
+  // GETTERS E SETTERS -------------------------------
 
   public function getId()      {
     return $this->id;
@@ -20,8 +31,17 @@ class Usuario {
     return $this->nome;
   }
 
+  public function getSenha()    {
+    return $this->senha;
+  }
+
   public function setNome($nome)     {
     $this->nome = $nome;
+    return $this;
+  }
+
+  public function setSenha($senha)     {
+    $this->senha = $senha;
     return $this;
   }
 
@@ -43,6 +63,8 @@ class Usuario {
     return $this;
   }
 
+// METODOS -------------------------------
+
 // busca usuario no banco pelo id
   public function loadById($id){
 
@@ -53,11 +75,8 @@ class Usuario {
       ));
 
       if (count($result) > 0){
-        $row = $result[0];
-        $this->setId($row['id']);
-        $this->setNome($row['nome']);
-        $this->setEndereco($row['endereco']);
-        $this->setNumero($row['numero']);
+        // chama o metodo para setas os atributos da class
+        $this->setData($result[0]);
       }
 
   }
@@ -74,6 +93,27 @@ class Usuario {
     return $sql->select("SELECT * FROM aula1 WHERE nome LIKE :SEARCH; ", array(
       ":SEARCH"=>$condicao
     ));
+  }
+
+  // insert dados do banco
+  public function insert(){
+    $sql = new Sql();
+    $result = $sql->query("INSERT INTO aula1 (id, nome, senha, endereco, numero) VALUES (NULL, :NOME, :SENHA, :ENDERECO, :NUMERO); ", array(
+      ":NOME"=>$this->getNome(),
+      ":SENHA"=>$this->getSenha(),
+      ":ENDERECO"=>$this->getEndereco(),
+      ":NUMERO"=>$this->getNumero()
+    ));
+
+  }
+
+  // seta os atributos da class para nao ficar redundante toda vez ue eu precisar
+  public function setData($data){
+    $this->setId($data['id']);
+    $this->setNome($data['nome']);
+    $this->setSenha($data['senha']);
+    $this->setEndereco($data['endereco']);
+    $this->setNumero($data['numero']);
   }
 
   // realiza login no banco
@@ -97,6 +137,7 @@ class Usuario {
   public function __toString(){
     return "Objeto Usuario com nome de: ".$this->getNome();
   }
+
 
 }
 
