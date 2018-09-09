@@ -67,18 +67,14 @@ class Usuario {
 
 // busca usuario no banco pelo id
   public function loadById($id){
-
-      $sql = new Sql();
-
-      $result = $sql->select("SELECT * FROM aula1 WHERE id = :ID; ", array(
-        ":ID"=>$id
-      ));
-
-      if (count($result) > 0){
-        // chama o metodo para setas os atributos da class
-        $this->setData($result[0]);
-      }
-
+    $sql = new Sql();
+    $result = $sql->select("SELECT * FROM aula1 WHERE id = :ID; ", array(
+      ":ID"=>$id
+    ));
+    if (count($result) > 0){
+      // chama o metodo para setas os atributos da class
+      $this->setData($result[0]);
+    }
   }
 
   // lista os dados do banco
@@ -104,8 +100,22 @@ class Usuario {
       ":ENDERECO"=>$this->getEndereco(),
       ":NUMERO"=>$this->getNumero()
     ));
-
   }
+
+  // delete dados do banco
+  public function delete(){
+    $sql = new Sql();
+    $result = $sql->query("DELETE FROM aula1 WHERE aula1.id = :ID; ", array(
+      ":ID"=>$this->getId()
+    ));
+    // limpa o objeto da memoria
+    $this->setId(null);
+    $this->setNome(null);
+    $this->setSenha(null);
+    $this->setEndereco(null);
+    $this->setNumero(null);
+  }
+
 
   // update dados do banco
   public function update(){
@@ -136,7 +146,6 @@ class Usuario {
       ":USUARIO"=>$usuario,
       ":SENHA"=>$senha
     ));
-
     if (count($result) > 0){
       $row = $result[0];
       return $row['nome'];

@@ -17,14 +17,17 @@ require_once("config.php");
 //$usuario->insert();
 //echo $usuario;
 
+//$usuario = new Usuario();
+//$usuario->loadById(20);
+//$usuario->setNome("Anderson atualizado pelo PHP");
+//$usuario->setSenha(base64_encode("04860"));
+//$usuario->setEndereco("rua testado o endereço");
+//$usuario->setNumero("486");
+//$usuario->update();
+
 $usuario = new Usuario();
-
-$usuario->loadById(20);
-$usuario->setNome("Anderson atualizado pelo PHP");
-$usuario->setSenha(base64_encode("04860"));
-$usuario->setEndereco("rua testado o endereço");
-$usuario->setNumero("486");
-
-$usuario->update();
+$usuario->loadById(22);
+$usuario->delete();
+echo $usuario;
 
 ?>
