@@ -107,6 +107,19 @@ class Usuario {
 
   }
 
+  // update dados do banco
+  public function update(){
+    $sql = new Sql();
+    $result = $sql->query("UPDATE aula1 SET nome = :NOME, senha = :SENHA, endereco = :ENDERECO, numero = :NUMERO WHERE aula1.id = :ID; ", array(
+      ":ID"=>$this->getId(),
+      ":NOME"=>$this->getNome(),
+      ":SENHA"=>$this->getSenha(),
+      ":ENDERECO"=>$this->getEndereco(),
+      ":NUMERO"=>$this->getNumero()
+    ));
+
+  }
+
   // seta os atributos da class para nao ficar redundante toda vez ue eu precisar
   public function setData($data){
     $this->setId($data['id']);
