@@ -1,0 +1,15 @@
+{
+    "name": "vagrant/composer",
+    "description": "Aula de composer",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Anderson Henrique",
+            "email": "anderson.h.silva@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "monolog/monolog":"1.0.*"
+    }
+}
