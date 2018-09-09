@@ -2,27 +2,25 @@
 /*
     ATENÇÃO! Para que o codigo a baixo funciona tem que o php ter a biblioteca GD adicionada ao seu extension_dir do php.ini
 */
-
 $image = imagecreatefromjpeg("certificado.jpg");
-$tite_color = imagecolorallocate($image, 0, 0, 0);
+$titlecolor = imagecolorallocate($image, 0, 0, 0);
 $gray = imagecolorallocate($image, 100, 100, 100);
 
-$nome_aluno = "Anderson Henrique da Silva";
+$nome_aluno = "Anderson Henrique";
 
-// adiciona fontes para os textos na imagem
-imagettftext($image, 32, 0, 320, 250, $tite_color, "fonts".DIRECTORY_SEPARATOR."Bevan".DIRECTORY_SEPARATOR."Bevan-Regular.ttf", "CERTIFICADO");
-imagettftext($image, 32, 0, 375, 350, $tite_color, "fonts".DIRECTORY_SEPARATOR."Playball".DIRECTORY_SEPARATOR."Playball-Regular.ttf", $nome_aluno);
-imagestring($image, 3, 440, 370, uft8_decode("Concluído em: ").date(d/m/Y), $gray);
+imagestring($image, 5, 450, 150, "CERTIFICADO",$titlecolor);
+imagestring($image, 5, 440, 350, $nome_aluno, $titlecolor);
+imagestring($image, 3, 440, 370, utf8_encode("Concluido em:").date("d/m/Y"),$titlecolor);
 
-header("Content-Type: image/png");
+//imagejpeg($image, "Certificado-".date("Y,m,d").".jpg", 10);
+header("Content-Type: image/jpeg");
 
-// p codigo a baixo ela gera a imagem somente na tela
-//imagejpeg($image);
+//mkdir('teste');
 
-// o codigo a baixo gera uma imagem fisica no servidor
-imagejpeg($image, "certificado-".date("Y-m-d").".jpg",10);
+//imagejpeg($image); // exibe imagem na tela
+imagejpeg($image, "certificado-".date("Y-m-d").".jpg", 60); // salva uma imagem local no servidor
 
-// destroi limpando a imagem da memoria do php
+// limpra a memoria do php
 imagedestroy($image);
 
  ?>
