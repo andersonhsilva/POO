@@ -3,10 +3,38 @@
   <head>
     <meta charset="utf-8">
     <title>Teste TPL</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
   <body>
+
+    <!--
+      isso aqui é um comentario
+      -->
+
+    {*
+      isso aqui é um comentário
+       *}
+
     <h1>Teste TPL - {$name}</h1>
     <p>TPL para teste de PHP - {$version}!</p>
+    <p>um dia do array -> {$lista.2}</p>
+    <ul>
+  		{loop="$lista"}
+  		<li>
+  			{$key} {$value}
+  		</li>
+  		{/loop}
+  	</ul>
+
+    <h2>If</h2>
+  	condição:
+    {if="$lista.2 == 'Quarta'"}
+      deu igual o resultado
+    {else}
+      nao deu igual - resultado
+    {/if} <br><br>
+
+
 
   </body>
 </html>

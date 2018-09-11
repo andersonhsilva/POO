@@ -9,19 +9,28 @@ use Rain\Tpl;
 $config = array(
     "tpl_dir"       => "templates/",
     "cache_dir"     => "cache/",
-    "debug"         => false, // set to false to improve the speed
+    "debug"         => false,
 );
-Tpl::configure( $config );
-// Add PathReplace plugin (necessary to load the CSS with path replace)
-//Tpl::registerPlugin( new Tpl\Plugin\PathReplace() );
+Tpl::configure($config);
+
+// esta linha faz necessário para o uso de CSS no template HTML
+Tpl::registerPlugin(new Tpl\Plugin\PathReplace());
 
 // passa as variaveis PHP para o template HTML
 $tpl = new Tpl;
-$tpl->assign( "name", "Teste de variavel de PHP parse..." );
-$tpl->assign( "version", PHP_VERSION );
-// estudar a passagens de array em variaveis pelo rain
-//$tpl->assign( "week", array( "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ) );
+
+// seta as variaveis
+$variaveis = array(
+    "name"  => "Bem vindo ao PHP com RainTPL3!",
+    "version"  => PHP_VERSION,
+    "safe_variable"  => "<script>console.log('this is safe')</script>",
+    "lista"		=> array("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"),
+    "user"		=> (object) array("name"=>"Rain", "citizen" => "Earth", "race" => "Human" ),
+    "numbers"	=> array( 3, 2, 1 ),
+
+);
 
 // chama o template com o metodo draw
-$tpl->draw( "base" );
+$tpl->assign($variaveis);
+$tpl->draw("base");
 ?>
